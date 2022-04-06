@@ -1,3 +1,7 @@
+import React from 'react'
+
+import { PolymorphicPropsWithRef } from 'react-polymorphic-types'
+
 export interface HTMLElements
   extends Omit<
     JSX.IntrinsicElements,
@@ -113,13 +117,11 @@ export interface AnimatedProps {
   unmountTimingFunction?: React.CSSProperties['animationTimingFunction']
 }
 
-export type AnimatedComponentProps<T extends keyof HTMLElements> = React.ComponentPropsWithoutRef<T> &
-  AnimatedProps & {
-    tag: keyof HTMLElements
-    style?: any
-    children?: React.ReactNode
-  }
+export type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<
+  AnimatedProps,
+  T
+>
 
 export type AnimatedComponent = {
-  [K in keyof HTMLElements]: (props: Omit<AnimatedComponentProps<K>, 'tag'>) => JSX.Element
+  [K in keyof HTMLElements]: (props: PolymorphicAnimatedComponentProps<K>) => JSX.Element
 }
