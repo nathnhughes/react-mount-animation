@@ -23,25 +23,23 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
     const Element: React.ElementType = as || 'div'
 
     const [shouldRender, setRender] = useState<boolean>(rest.show)
-    const [cleanedProps] = useState(
-      (({
-        show,
-        time,
-        unmountTime,
-        delay,
-        unmountDelay,
-        mountAnim,
-        unmountAnim,
-        mountAnimId,
-        unmountAnimId,
-        onAnimationEnd,
-        onMountEnd,
-        onUnmountEnd,
-        mountTimingFunction,
-        unmountTimingFunction,
-        ...cleaned
-      }) => cleaned)(rest),
-    )
+    const cleanedProps = (({
+      show,
+      time,
+      unmountTime,
+      delay,
+      unmountDelay,
+      mountAnim,
+      unmountAnim,
+      mountAnimId,
+      unmountAnimId,
+      onAnimationEnd,
+      onMountEnd,
+      onUnmountEnd,
+      mountTimingFunction,
+      unmountTimingFunction,
+      ...cleaned
+    }) => cleaned)(rest)
     const [mountId, setMountId] = useState<string>('')
     const [unmountId, setUnmountId] = useState<string>('')
     const [styleSheet, setStyleSheet] = useState<any>(null)
