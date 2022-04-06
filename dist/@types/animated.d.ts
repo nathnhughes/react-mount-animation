@@ -1,4 +1,5 @@
-/// <reference types="react" />
+import React from 'react';
+import { PolymorphicPropsWithRef } from 'react-polymorphic-types';
 export interface HTMLElements extends Omit<JSX.IntrinsicElements, 'animate' | 'animateMotion' | 'animateTransform' | 'clipPath' | 'defs' | 'desc' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'line' | 'linearGradient' | 'marker' | 'metadata' | 'mpath' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view'> {
 }
 export interface AnimatedProps {
@@ -59,11 +60,7 @@ export interface AnimatedProps {
      */
     unmountTimingFunction?: React.CSSProperties['animationTimingFunction'];
 }
-export declare type AnimatedComponentProps<T extends keyof HTMLElements> = React.ComponentPropsWithoutRef<T> & AnimatedProps & {
-    tag: keyof HTMLElements;
-    style?: any;
-    children?: React.ReactNode;
-};
+export declare type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<AnimatedProps, T>;
 export declare type AnimatedComponent = {
-    [K in keyof HTMLElements]: (props: Omit<AnimatedComponentProps<K>, 'tag'>) => JSX.Element;
+    [K in keyof HTMLElements]: (props: PolymorphicAnimatedComponentProps<K>) => JSX.Element;
 };
