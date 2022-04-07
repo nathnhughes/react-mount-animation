@@ -49,7 +49,7 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
       if (!!rest.mountAnimId && typeof rest.mountAnimId === 'string') {
         setMountId(rest.mountAnimId)
       } else {
-        let newMountId = `mount-${makeID(8)}`
+        let newMountId = `mount-${makeId(8)}`
         const keyframes = `@-webkit-keyframes ${newMountId} {
           ${rest.mountAnim}
       }
@@ -61,7 +61,7 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
       if (!!rest.unmountAnimId && typeof rest.unmountAnimId === 'string') {
         setUnmountId(rest.unmountAnimId)
       } else {
-        let newUnmountId = `mount-${makeID(8)}`
+        let newUnmountId = `mount-${makeId(8)}`
         const keyframes = `@-webkit-keyframes ${newUnmountId} {
         ${rest.unmountAnim ? rest.unmountAnim : rest.mountAnim}
       }
@@ -126,7 +126,7 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
   },
 )
 
-const makeID = (length: number) => {
+const makeId = (length: number) => {
   let result = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const charactersLength = characters.length
