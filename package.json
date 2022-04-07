@@ -28,16 +28,9 @@
   ],
   "scripts": {
     "start": "webpack-dev-server --open  --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js",
-    "build-dev": "webpack --config webpack.config.dev-build.js",
-    "build-common": "webpack --config webpack.config.common.js",
-    "watch": "tsc -w",
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "build-storybook": "build-storybook -c .storybook -o demo"
-  },
-  "dependencies": {
-    "react": "^17.0.1"
+    "build": "rollup -c",
+    "build:dev": "if [ -e \"dist\" ];then rm -rf \"dist\"; fi && rollup -c",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx"
   },
   "peerDependencies": {
     "react": "^17.0.1",
@@ -53,6 +46,7 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "babel-loader": "^8.2.2",
+    "esbuild": "^0.14.34",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-prettier": "^6.15.0",
@@ -68,8 +62,12 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^2.4.0",
     "prettier": "^1.19.1",
+    "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-polymorphic-types": "^2.0.0",
+    "rollup": "^2.70.1",
+    "rollup-plugin-dts": "^4.2.0",
+    "rollup-plugin-esbuild": "^4.9.1",
     "ts-loader": "^6.2.2",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^4.1.3",
