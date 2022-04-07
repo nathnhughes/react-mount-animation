@@ -112,7 +112,7 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
         {shouldRender && (
           <Element
             ref={ref}
-            {...cleanedProps}
+            // {...cleanedProps}
             style={{
               animationName: `${rest.show ? mountId : unmountId}`,
               animationDuration: `${
