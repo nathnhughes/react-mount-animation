@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // Types
-import { AnimatedProps, AnimatedComponent, PolymorphicAnimatedComponentProps } from '../../@types/animated'
+import { $AnimatedProps, AnimatedComponent, PolymorphicAnimatedComponentProps } from '../../@types/animated'
 import { PolymorphicForwardRefExoticComponent, PolymorphicPropsWithoutRef } from 'react-polymorphic-types'
 
 /*
@@ -15,38 +15,23 @@ import { PolymorphicForwardRefExoticComponent, PolymorphicPropsWithoutRef } from
 
 */
 
-const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div'> = React.forwardRef(
+const AnimatedInternal: PolymorphicForwardRefExoticComponent<$AnimatedProps, 'div'> = React.forwardRef(
   <T extends React.ElementType = 'div'>(
-    { as, children, ...rest }: PolymorphicPropsWithoutRef<AnimatedProps, T>,
+    { as, children, ...rest }: PolymorphicPropsWithoutRef<$AnimatedProps, T>,
     ref: React.ForwardedRef<Element>,
   ) => {
     const Element: React.ElementType = as || 'div'
 
-    const [shouldRender, setRender] = useState<boolean>(rest.show)
+    const [shouldRender, setRender] = useState<boolean>(rest.$show)
 
     const [mountId, setMountId] = useState<string>('')
     const [unmountId, setUnmountId] = useState<string>('')
     const [styleSheet, setStyleSheet] = useState<any>(null)
 
     const cleanedProps: Omit<
-      PolymorphicPropsWithoutRef<Partial<AnimatedProps>, T>,
+      PolymorphicPropsWithoutRef<Partial<$AnimatedProps>, T>,
       'as' | 'children'
     > = Object.assign({}, rest)
-
-    delete cleanedProps['show']
-    delete cleanedProps['time']
-    delete cleanedProps['unmountTime']
-    delete cleanedProps['delay']
-    delete cleanedProps['unmountDelay']
-    delete cleanedProps['mountAnim']
-    delete cleanedProps['unmountAnim']
-    delete cleanedProps['mountAnimId']
-    delete cleanedProps['unmountAnimId']
-    delete cleanedProps['onAnimationEnd']
-    delete cleanedProps['onMountEnd']
-    delete cleanedProps['onUnmountEnd']
-    delete cleanedProps['mountTimingFunction']
-    delete cleanedProps['unmountTimingFunction']
 
     useEffect(() => {
       if (typeof document !== 'undefined') {
@@ -61,53 +46,53 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
 
     useEffect(() => {
       if (!styleSheet) return
-      if (!!rest.mountAnimId && typeof rest.mountAnimId === 'string') {
-        setMountId(rest.mountAnimId)
+      if (!!rest.$mountAnimId && typeof rest.$mountAnimId === 'string') {
+        setMountId(rest.$mountAnimId)
       } else {
         let newMountId = `mount-${makeID(8)}`
         const keyframes = `@-webkit-keyframes ${newMountId} {
-          ${rest.mountAnim}
+          ${rest.$mountAnim}
       }
       `
         styleSheet.insertRule(keyframes, styleSheet.cssRules ? styleSheet.cssRules.length : 0)
         setMountId(newMountId)
       }
 
-      if (!!rest.unmountAnimId && typeof rest.unmountAnimId === 'string') {
-        setUnmountId(rest.unmountAnimId)
+      if (!!rest.$unmountAnimId && typeof rest.$unmountAnimId === 'string') {
+        setUnmountId(rest.$unmountAnimId)
       } else {
         let newUnmountId = `mount-${makeID(8)}`
         const keyframes = `@-webkit-keyframes ${newUnmountId} {
-        ${rest.unmountAnim ? rest.unmountAnim : rest.mountAnim}
+        ${rest.$unmountAnim ? rest.$unmountAnim : rest.$mountAnim}
       }
       `
         styleSheet.insertRule(keyframes, styleSheet.cssRules ? styleSheet.cssRules.length : 0)
         setUnmountId(newUnmountId)
       }
-    }, [styleSheet, rest.mountAnim, rest.unmountAnim, rest.mountAnimId, rest.unmountAnimId])
+    }, [styleSheet, rest.$mountAnim, rest.$unmountAnim, rest.$mountAnimId, rest.$unmountAnimId])
 
     useEffect(() => {
-      if (rest.show) {
-        if (rest.delay && typeof rest.delay === 'number') {
+      if (rest.$show) {
+        if (rest.$delay && typeof rest.$delay === 'number') {
           setTimeout(() => {
             setRender(true)
-          }, rest.delay * 1000)
+          }, rest.$delay * 1000)
         } else {
           setRender(true)
         }
       }
-    }, [rest.show, rest.delay])
+    }, [rest.$show, rest.$delay])
 
     const onAnimationEnd = () => {
-      if (!rest.show) setRender(false)
-      if (rest.onMountEnd && rest.show) {
-        rest.onMountEnd()
+      if (!rest.$show) setRender(false)
+      if (rest.$onMountEnd && rest.$show) {
+        rest.$onMountEnd()
       }
-      if (rest.onUnmountEnd && !rest.show) {
-        rest.onUnmountEnd()
+      if (rest.$onUnmountEnd && !rest.$show) {
+        rest.$onUnmountEnd()
       }
-      if (rest.onAnimationEnd) {
-        rest.onAnimationEnd()
+      if (rest.$onAnimationEnd) {
+        rest.$onAnimationEnd()
       }
     }
 
@@ -118,17 +103,21 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
             ref={ref}
             {...cleanedProps}
             style={{
-              animationName: `${rest.show ? mountId : unmountId}`,
+              animationName: `${rest.$show ? mountId : unmountId}`,
               animationDuration: `${
-                rest.unmountTime !== undefined && !rest.show ? rest.unmountTime : rest.time ? rest.time : 1
+                rest.$unmountTime !== undefined && !rest.$show
+                  ? rest.$unmountTime
+                  : rest.$time
+                  ? rest.$time
+                  : 1
               }s`,
               animationDirection:
-                rest.show || !!rest.unmountAnim || !!rest.unmountAnimId ? 'normal' : 'reverse',
-              animationDelay: `${rest.unmountDelay !== undefined && !rest.show ? rest.unmountDelay : 0}s`,
+                rest.$show || !!rest.$unmountAnim || !!rest.$unmountAnimId ? 'normal' : 'reverse',
+              animationDelay: `${rest.$unmountDelay !== undefined && !rest.$show ? rest.$unmountDelay : 0}s`,
               animationTimingFunction:
-                rest.unmountTimingFunction !== undefined && !rest.show
-                  ? rest.unmountTimingFunction
-                  : rest.mountTimingFunction,
+                rest.$unmountTimingFunction !== undefined && !rest.$show
+                  ? rest.$unmountTimingFunction
+                  : rest.$mountTimingFunction,
               ...rest.style,
             }}
             onAnimationEnd={onAnimationEnd}
