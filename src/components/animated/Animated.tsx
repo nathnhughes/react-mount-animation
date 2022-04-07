@@ -23,26 +23,30 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
     const Element: React.ElementType = as || 'div'
 
     const [shouldRender, setRender] = useState<boolean>(rest.show)
-    const cleanedProps = (({
-      show,
-      time,
-      unmountTime,
-      delay,
-      unmountDelay,
-      mountAnim,
-      unmountAnim,
-      mountAnimId,
-      unmountAnimId,
-      onAnimationEnd,
-      onMountEnd,
-      onUnmountEnd,
-      mountTimingFunction,
-      unmountTimingFunction,
-      ...cleaned
-    }) => cleaned)(rest)
+
     const [mountId, setMountId] = useState<string>('')
     const [unmountId, setUnmountId] = useState<string>('')
     const [styleSheet, setStyleSheet] = useState<any>(null)
+
+    const cleanedProps: Omit<
+      PolymorphicPropsWithoutRef<Partial<AnimatedProps>, T>,
+      'as' | 'children'
+    > = Object.assign({}, rest)
+
+    delete cleanedProps['show']
+    delete cleanedProps['time']
+    delete cleanedProps['unmountTime']
+    delete cleanedProps['delay']
+    delete cleanedProps['unmountDelay']
+    delete cleanedProps['mountAnim']
+    delete cleanedProps['unmountAnim']
+    delete cleanedProps['mountAnimId']
+    delete cleanedProps['unmountAnimId']
+    delete cleanedProps['onAnimationEnd']
+    delete cleanedProps['onMountEnd']
+    delete cleanedProps['onUnmountEnd']
+    delete cleanedProps['mountTimingFunction']
+    delete cleanedProps['unmountTimingFunction']
 
     useEffect(() => {
       if (typeof document !== 'undefined') {
@@ -112,7 +116,7 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
         {shouldRender && (
           <Element
             ref={ref}
-            // {...cleanedProps}
+            {...cleanedProps}
             style={{
               animationName: `${rest.show ? mountId : unmountId}`,
               animationDuration: `${
