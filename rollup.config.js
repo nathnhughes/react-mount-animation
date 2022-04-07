@@ -60,4 +60,4 @@ const configTS = {
   plugins: [dts()],
 }
 
-export default [configProd, configTS]
+export default [configDev, configTS]
