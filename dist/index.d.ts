@@ -1,1 +1,3 @@
-export { default, $Animated } from './components/animated/Animated';
+import Animated, { $Animated } from './components/animated/Animated';
+export { $Animated };
+export default Animated;
