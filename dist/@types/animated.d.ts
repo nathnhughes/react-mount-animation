@@ -60,7 +60,10 @@ export interface AnimatedProps {
      */
     unmountTimingFunction?: React.CSSProperties['animationTimingFunction'];
 }
-export declare type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<AnimatedProps, T>;
+export declare type $AnimatedProps = {
+    [K in keyof AnimatedProps as `$${K}`]: AnimatedProps[K];
+};
+export declare type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<$AnimatedProps, T>;
 export declare type AnimatedComponent = {
     [K in keyof HTMLElements]: (props: PolymorphicAnimatedComponentProps<K>) => JSX.Element;
 };

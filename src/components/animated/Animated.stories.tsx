@@ -1,14 +1,14 @@
-import Animated from "./Animated";
+import Animated from './Animated'
 
 export default {
   component: Animation,
-  title: "Simple Animation",
-};
+  title: 'Simple Animation',
+}
 
 export const Basic = () => (
   <Animated.div
-    show={true}
-    mountAnim={`
+    $show={true}
+    $mountAnim={`
     0% {border-radius: 4px}
     0% {opacity: 0}
     0% {font-size: 12px}
@@ -22,31 +22,30 @@ export const Basic = () => (
   `}
     //mountAnimId={""}
     //unmountAnimId={"unmount-anim"}
-    time={1}
-    href="http://google.com"
+    $time={1}
+    // href="http://google.com"
     style={{
-      width: "fit-content",
+      width: 'fit-content',
       fontSize: 24,
-      color: "white",
-      backgroundColor: "black",
+      color: 'white',
+      backgroundColor: 'black',
       padding: 20,
       borderRadius: 20,
-      boxShadow:
-        "0px 0px 13px 4px rgba(0,0,0,1), inset 0px 0px 2px 2px rgba(255,255,255,0.2)",
+      boxShadow: '0px 0px 13px 4px rgba(0,0,0,1), inset 0px 0px 2px 2px rgba(255,255,255,0.2)',
     }}
   >
     <Animated.div
-      show={true}
-      mountAnim={`
+      $show={true}
+      $mountAnim={`
       60% {transform: translate(0px, 0)}
       85% {transform: translate(10px, 0)}
     `}
-      time={1.1}
+      $time={1.1}
       style={{
-        fontFamily: "Arial",
+        fontFamily: 'Arial',
       }}
     >
       Hi! This is a test component 😝
     </Animated.div>
   </Animated.div>
-);
+)

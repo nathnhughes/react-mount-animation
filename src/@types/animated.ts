@@ -117,8 +117,12 @@ export interface AnimatedProps {
   unmountTimingFunction?: React.CSSProperties['animationTimingFunction']
 }
 
+export type $AnimatedProps = {
+  [K in keyof AnimatedProps as `$${K}`]: AnimatedProps[K]
+}
+
 export type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<
-  AnimatedProps,
+  $AnimatedProps,
   T
 >
 
