@@ -1,4 +1,4 @@
-import React from 'react'
+import type {CSSProperties} from 'react'
 
 import { PolymorphicPropsWithRef } from 'react-polymorphic-types'
 
@@ -110,11 +110,11 @@ export interface AnimatedProps {
   /**
    * Timing function used for mount animation
    */
-  mountTimingFunction?: React.CSSProperties['animationTimingFunction']
+  mountTimingFunction?: CSSProperties['animationTimingFunction']
   /**
    * Timing function used for unmount animation
    */
-  unmountTimingFunction?: React.CSSProperties['animationTimingFunction']
+  unmountTimingFunction?: CSSProperties['animationTimingFunction']
 }
 
 export type AnimatedComponent = {
