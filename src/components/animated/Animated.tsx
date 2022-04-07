@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
 // Types
-import { AnimatedProps, AnimatedComponent, PolymorphicAnimatedComponentProps } from '../../@types/animated'
-import { PolymorphicForwardRefExoticComponent, PolymorphicPropsWithoutRef } from 'react-polymorphic-types'
+import {
+  AnimatedProps,
+  TransientAnimatedProps,
+  AnimatedComponent,
+  TransientAnimatedComponent,
+} from '../../@types/animated'
+import {
+  PolymorphicForwardRefExoticComponent,
+  PolymorphicPropsWithoutRef,
+  PolymorphicPropsWithRef,
+} from 'react-polymorphic-types'
 
 /*
 
@@ -32,6 +41,21 @@ const AnimatedInternal: PolymorphicForwardRefExoticComponent<AnimatedProps, 'div
       PolymorphicPropsWithoutRef<Partial<AnimatedProps>, T>,
       'as' | 'children'
     > = Object.assign({}, rest)
+
+    delete cleanedProps['show']
+    delete cleanedProps['time']
+    delete cleanedProps['unmountTime']
+    delete cleanedProps['delay']
+    delete cleanedProps['unmountDelay']
+    delete cleanedProps['mountAnim']
+    delete cleanedProps['unmountAnim']
+    delete cleanedProps['mountAnimId']
+    delete cleanedProps['unmountAnimId']
+    delete cleanedProps['onAnimationEnd']
+    delete cleanedProps['onMountEnd']
+    delete cleanedProps['onUnmountEnd']
+    delete cleanedProps['mountTimingFunction']
+    delete cleanedProps['unmountTimingFunction']
 
     useEffect(() => {
       if (typeof document !== 'undefined') {
@@ -139,8 +163,21 @@ const makeId = (length: number) => {
 }
 
 const AnimatedInternalFactory = <T extends React.ElementType = 'div'>(
-  props: PolymorphicAnimatedComponentProps<T>,
+  props: PolymorphicPropsWithRef<AnimatedProps, T>,
 ): JSX.Element => <AnimatedInternal {...props} />
+
+const TransientAnimatedInternalFactory = <T extends React.ElementType = 'div'>(
+  props: PolymorphicPropsWithRef<TransientAnimatedProps, T>,
+): JSX.Element => {
+  const cleaned = {}
+
+  for (const key in props) {
+    const t = key.startsWith('$') ? key.substring(1) : key
+    cleaned[t] = props[key]
+  }
+
+  return <AnimatedInternal {...(cleaned as PolymorphicPropsWithRef<AnimatedProps, T>)} />
+}
 
 const Animated: AnimatedComponent = {
   a: AnimatedInternalFactory,
@@ -268,5 +305,9 @@ const Animated: AnimatedComponent = {
   path: AnimatedInternalFactory,
   rect: AnimatedInternalFactory,
 }
+
+export const TransientAnimated = Object.fromEntries(
+  Object.keys(Animated).map(key => [key, TransientAnimatedInternalFactory]),
+) as TransientAnimatedComponent
 
 export default Animated

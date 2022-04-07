@@ -117,15 +117,15 @@ export interface AnimatedProps {
   unmountTimingFunction?: React.CSSProperties['animationTimingFunction']
 }
 
-export type $AnimatedProps = {
+export type AnimatedComponent = {
+  [T in keyof HTMLElements]: (props: PolymorphicPropsWithRef<AnimatedProps, T>) => JSX.Element
+}
+
+// Transient Types
+export type TransientAnimatedProps = {
   [K in keyof AnimatedProps as `$${K}`]: AnimatedProps[K]
 }
 
-export type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<
-  AnimatedProps,
-  T
->
-
-export type AnimatedComponent = {
-  [K in keyof HTMLElements]: (props: PolymorphicAnimatedComponentProps<K>) => JSX.Element
+export type TransientAnimatedComponent = {
+  [T in keyof HTMLElements]: (props: PolymorphicPropsWithRef<TransientAnimatedProps, T>) => JSX.Element
 }

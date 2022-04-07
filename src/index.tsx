@@ -1,1 +1,1 @@
-export { default } from './components/animated/Animated'
+export { default, TransientAnimated } from './components/animated/Animated'
