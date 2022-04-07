@@ -8,7 +8,8 @@
   },
   "license": "MIT",
   "author": "Miguel Jiménez Benajes",
-  "main": "dist/index.js",
+  "type": "module",
+  "main": "dist/react-mount-animation.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
