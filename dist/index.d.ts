@@ -1,1 +1,1 @@
-export { default, TransientAnimated } from './components/animated/Animated';
+export { default, $Animated } from './components/animated/Animated';

@@ -1,4 +1,5 @@
 import { AnimatedComponent, TransientAnimatedComponent } from '../../@types/animated';
 declare const Animated: AnimatedComponent;
-export declare const TransientAnimated: TransientAnimatedComponent;
+declare const $Animated: TransientAnimatedComponent;
+export { $Animated };
 export default Animated;

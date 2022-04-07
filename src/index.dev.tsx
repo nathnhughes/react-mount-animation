@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Animated, { TransientAnimated } from './index'
+import Animated, { $Animated } from './index'
 
 const TestComponent = () => {
   const [show, setShow] = useState(false)
@@ -76,7 +76,7 @@ const TestTransientComponent = () => {
   return (
     <div>
       <button onClick={() => setShow(!show)}>SHOW/HIDE</button>
-      <TransientAnimated.div
+      <$Animated.div
         $show={show}
         $onMountEnd={() => console.log('-- MOUNT END --')}
         $onUnmountEnd={() => console.log('-- UNMOUNT END --')}
@@ -119,7 +119,7 @@ const TestTransientComponent = () => {
           boxShadow: '0px 0px 13px 4px rgba(0,0,0,1), inset 0px 0px 2px 2px rgba(255,255,255,0.2)',
         }}
       >
-        <TransientAnimated.div
+        <$Animated.div
           $show={show}
           $mountAnim={`
               60% {transform: translate(0px, 0)}
@@ -132,8 +132,8 @@ const TestTransientComponent = () => {
           }}
         >
           Hi! This is a test component 😝
-        </TransientAnimated.div>
-      </TransientAnimated.div>
+        </$Animated.div>
+      </$Animated.div>
     </div>
   )
 }
