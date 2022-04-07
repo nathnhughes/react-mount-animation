@@ -7,8 +7,8 @@ export default {
 
 export const Basic = () => (
   <Animated.div
-    $show={true}
-    $mountAnim={`
+    show={true}
+    mountAnim={`
     0% {border-radius: 4px}
     0% {opacity: 0}
     0% {font-size: 12px}
@@ -22,7 +22,7 @@ export const Basic = () => (
   `}
     //mountAnimId={""}
     //unmountAnimId={"unmount-anim"}
-    $time={1}
+    time={1}
     // href="http://google.com"
     style={{
       width: 'fit-content',
@@ -35,12 +35,12 @@ export const Basic = () => (
     }}
   >
     <Animated.div
-      $show={true}
-      $mountAnim={`
+      show={true}
+      mountAnim={`
       60% {transform: translate(0px, 0)}
       85% {transform: translate(10px, 0)}
     `}
-      $time={1.1}
+      time={1.1}
       style={{
         fontFamily: 'Arial',
       }}

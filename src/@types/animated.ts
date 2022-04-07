@@ -122,7 +122,7 @@ export type $AnimatedProps = {
 }
 
 export type PolymorphicAnimatedComponentProps<T extends React.ElementType = 'div'> = PolymorphicPropsWithRef<
-  $AnimatedProps,
+  AnimatedProps,
   T
 >
 
