@@ -20,11 +20,11 @@ const configBase = {
 const configDev = {
   ...configBase,
   output: [
-    {
-      file: `dist/react-mount-animation.cjs.js`,
-      format: 'cjs',
-      sourcemap: true,
-    },
+    // {
+    //   file: `dist/react-mount-animation.cjs.js`,
+    //   format: 'cjs',
+    //   sourcemap: true,
+    // },
     {
       file: `dist/react-mount-animation.js`,
       format: 'es',
